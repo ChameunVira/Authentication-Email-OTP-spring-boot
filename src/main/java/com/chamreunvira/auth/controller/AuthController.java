@@ -7,6 +7,7 @@ import com.chamreunvira.auth.service.AuthService;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         AuthResponse response = profileService.login(request);
-        ResponseCookie cookie = ResponseCookie.from("token" , response.getJwtToken())
+        ResponseCookie cookie = ResponseCookie.from("token" , response.getToken())
                 .httpOnly(true)
                 .path("/")
                 .sameSite("Strict")
@@ -68,6 +69,19 @@ public class AuthController {
             log.info(ex.getLocalizedMessage());
         }
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        ResponseCookie cookie = ResponseCookie
+                .from("token" , "")
+                .path("/")
+                .secure(false)
+                .httpOnly(true)
+                .sameSite("Strict")
+                .maxAge(0)
+                .build();
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE , cookie.toString()).body("Logout successfully.");
     }
 
 }

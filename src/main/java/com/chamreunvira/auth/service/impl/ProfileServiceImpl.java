@@ -61,7 +61,7 @@ public class ProfileServiceImpl implements AuthService {
 
         return AuthResponse.builder()
                 .email(user.getEmail())
-                .jwtToken(jwtToken)
+                .token(jwtToken)
                 .build();
     }
 
@@ -173,6 +173,7 @@ public class ProfileServiceImpl implements AuthService {
                 .name(userEntity.getName())
                 .email(userEntity.getEmail())
                 .password(userEntity.getPassword())
+                .isAccountVerified(userEntity.isAccountVerified())
                 .build();
     }
 
