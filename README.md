@@ -33,8 +33,8 @@ Follow these steps to set up the project locally.
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd back_and_front_end_auth_otp
+git clone https://github.com/ChameunVira/Authentication-Email-OTP-spring-boot.git
+cd full-stack-auth-otp
 ```
 
 ### 2. Backend Setup
